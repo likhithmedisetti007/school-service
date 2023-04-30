@@ -17,9 +17,6 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
-  
-management:
-  endpoints:
-    web:
-      exposure:
-        include: '*'
+  graphql:
+    graphiql:
+      enabled: true

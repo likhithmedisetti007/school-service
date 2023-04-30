@@ -1,0 +1,9 @@
+type Query{
+getSchoolDetailsByName(name: String): [GetSchoolDetailsByNameResponse]
+}
+
+type GetSchoolDetailsByNameResponse{
+id: ID!
+name: String!
+location: String!
+}
