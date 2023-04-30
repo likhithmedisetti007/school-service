@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.graphql.data.method.annotation.Argument;
+import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,6 +29,7 @@ public class SchoolController {
 	SchoolServiceFacade schoolService;
 
 	@GetMapping("/getSchoolDetails")
+	@QueryMapping
 	public List<GetSchoolDetailsByNameResponse> getSchoolDetails() {
 		LOG.info("SchoolController :: getSchoolDetails :: STARTS");
 
@@ -50,7 +52,8 @@ public class SchoolController {
 	}
 
 	@PostMapping("/pushSchoolDetails")
-	public String pushSchoolDetails(@RequestBody List<PushSchoolDetailsRequest> requestBody) {
+	@MutationMapping
+	public String pushSchoolDetails(@Argument @RequestBody List<PushSchoolDetailsRequest> requestBody) {
 		LOG.info("SchoolController :: pushSchoolDetails :: STARTS");
 
 		try {
