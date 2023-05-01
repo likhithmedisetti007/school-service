@@ -39,7 +39,7 @@ public class SchoolController {
 		return response;
 	}
 
-	@PostMapping("/getSchoolDetailsByName/{name}")
+	@GetMapping("/getSchoolDetailsByName/{name}")
 	@QueryMapping
 	public List<GetSchoolDetailsByNameResponse> getSchoolDetailsByName(@Argument @PathVariable String name) {
 		LOG.info("SchoolController :: getSchoolDetailsByName :: STARTS");

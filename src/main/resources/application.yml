@@ -1,11 +1,8 @@
 spring:
-  devtools:
-    livereload:
-      enabled: false
-  profiles:
-    active: 'local'
   application:
-    name: 'school-service'
+    name: school-service
+  profiles:
+    active: local
   datasource:
     url: jdbc:oracle:thin:@localhost:1521:xe
     username: xe
@@ -20,3 +17,13 @@ spring:
   graphql:
     graphiql:
       enabled: true
+      
+server:
+  port: 9001
+      
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+  instance:
+    instance-id: ${eureka.instance.hostname}:${server.port}
