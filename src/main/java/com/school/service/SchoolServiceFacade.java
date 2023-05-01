@@ -12,8 +12,8 @@ public interface SchoolServiceFacade {
 
 	public List<GetSchoolDetailsByNameResponse> getSchoolDetails();
 
-	public List<GetSchoolDetailsByNameResponse> getSchoolDetailsByName(String name);
+	public GetSchoolDetailsByNameResponse getSchoolDetailsByName(String name);
 
-	public void pushSchoolDetails(List<PushSchoolDetailsRequest> pushSchoolDetailsRequest);
+	public List<String> pushSchoolDetails(List<PushSchoolDetailsRequest> pushSchoolDetailsRequest);
 
 }

@@ -1,19 +1,39 @@
 type Query{
 getSchoolDetails: [GetSchoolDetailsByNameResponse]
-getSchoolDetailsByName(name: String): [GetSchoolDetailsByNameResponse]
+getSchoolDetailsByName(name: String): GetSchoolDetailsByNameResponse
 }
 
 type Mutation{
-pushSchoolDetails(requestBody: [PushSchoolDetailsRequest]): String
+pushSchoolDetails(requestBody: [PushSchoolDetailsRequest]): [String]
 }
 
 type GetSchoolDetailsByNameResponse{
 id: ID!
 name: String!
 location: String!
+studentInfo: [StudentInfoResponse]
+}
+
+type StudentInfoResponse{
+id: ID!
+name: String!
+age: String!
+gender: String!
+schoolName: String!
+remarks: String!
 }
 
 input PushSchoolDetailsRequest{
 name: String!
 location: String!
+studentInfo: [StudentInfoRequest]
+}
+
+input StudentInfoRequest{
+id: ID
+name: String!
+age: String!
+gender: String!
+schoolName: String!
+remarks: String!
 }

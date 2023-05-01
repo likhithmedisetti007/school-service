@@ -5,6 +5,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
@@ -21,6 +22,7 @@ import com.school.service.SchoolServiceFacade;
 
 @RestController
 @RequestMapping("/school")
+@EnableFeignClients(basePackages = "com.school.client")
 public class SchoolController {
 
 	private static final Logger LOG = LoggerFactory.getLogger(SchoolController.class);
@@ -41,11 +43,11 @@ public class SchoolController {
 
 	@GetMapping("/getSchoolDetailsByName/{name}")
 	@QueryMapping
-	public List<GetSchoolDetailsByNameResponse> getSchoolDetailsByName(@Argument @PathVariable String name) {
+	public GetSchoolDetailsByNameResponse getSchoolDetailsByName(@Argument @PathVariable String name) {
 		LOG.info("SchoolController :: getSchoolDetailsByName :: STARTS");
 		LOG.info("School Name: " + name);
 
-		List<GetSchoolDetailsByNameResponse> response = schoolService.getSchoolDetailsByName(name);
+		GetSchoolDetailsByNameResponse response = schoolService.getSchoolDetailsByName(name);
 
 		LOG.info("SchoolController :: getSchoolDetailsByName :: ENDS");
 		return response;
@@ -53,18 +55,20 @@ public class SchoolController {
 
 	@PostMapping("/pushSchoolDetails")
 	@MutationMapping
-	public String pushSchoolDetails(@Argument @RequestBody List<PushSchoolDetailsRequest> requestBody) {
+	public List<String> pushSchoolDetails(@Argument @RequestBody List<PushSchoolDetailsRequest> requestBody) {
 		LOG.info("SchoolController :: pushSchoolDetails :: STARTS");
 
+		List<String> responseMessages = null;
+
 		try {
-			schoolService.pushSchoolDetails(requestBody);
+			responseMessages = schoolService.pushSchoolDetails(requestBody);
 		} catch (Exception e) {
 			LOG.debug("Exception: " + e.getMessage());
-			return "Unexpected Issue occured while pushing the record.";
+			responseMessages.add("Unexpected Issue occured while pushing the record(s).");
 		}
 
 		LOG.info("SchoolController :: pushSchoolDetails :: ENDS");
-		return requestBody.size() + " record(s) pushed.";
+		return responseMessages;
 	}
 
 }

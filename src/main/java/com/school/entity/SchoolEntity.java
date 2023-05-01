@@ -17,7 +17,7 @@ public class SchoolEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@Column(name = "ID")
-	private String id;
+	private Long id;
 
 	@Column(name = "NAME")
 	private String name;
