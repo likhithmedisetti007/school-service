@@ -21,7 +21,7 @@ import com.school.dto.PushSchoolDetailsRequest;
 import com.school.service.SchoolServiceFacade;
 
 @RestController
-@RequestMapping("/school")
+@RequestMapping("/school-service")
 @EnableFeignClients(basePackages = "com.school.client")
 public class SchoolController {
 

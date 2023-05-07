@@ -17,9 +17,9 @@ spring:
   graphql:
     graphiql:
       enabled: true
-            
-server:
-  port: 9001
+  zipkin:
+    message-timeout: 10000
+    check-timeout: 10000
       
 eureka:
   client:
@@ -27,3 +27,12 @@ eureka:
     fetch-registry: true
   instance:
     instance-id: ${eureka.instance.hostname}:${server.port}
+    lease-renewal-interval-in-seconds: 5
+    lease-expiration-duration-in-seconds: 10
+    status-page-url-path: /actuator/health
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
